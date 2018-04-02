@@ -15,5 +15,6 @@ namespace HandIn2_2RDB
         public DbSet<Person> Personer { get; set; }
         public DbSet<Personkartotek> Personkartoteker { get; set; }
         public DbSet<Telefon> Telefoner { get; set; }
+
     }
 }

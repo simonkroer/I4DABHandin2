@@ -29,10 +29,12 @@ namespace HandIn2_2RDB
 
         public void Update(T t)
         {
-                _context.Set<T>().AddOrUpdate(t);
+            _context.Set<T>().AddOrUpdate(t);
         }
+
         public void Delete(T t)
         {
             _context.Set<T>().Remove(t);
         }
     }
+}

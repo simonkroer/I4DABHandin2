@@ -8,6 +8,7 @@ namespace HandIn2_2RDB.Models
 {
     public class Adresse
     {
+        public int adresseId { get; set; }
         public string by { get; set; }
         public string land { get; set; }
         public string postnummer { get; set; }

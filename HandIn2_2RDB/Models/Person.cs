@@ -9,7 +9,7 @@ namespace HandIn2_2RDB.Models
     public class Person
     {
 
-        public int PersonId { get; set; }
+        public int personId { get; set; }
         public string fornavn { get; set; }
         public string mellemnavn { get; set; }
         public string efternavn { get; set; }

@@ -47,6 +47,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201804021913076_InitialCreate.cs" />
+    <Compile Include="Migrations\201804021913076_InitialCreate.Designer.cs">
+      <DependentUpon>201804021913076_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804022050131_KeyAltAdress.cs" />
+    <Compile Include="Migrations\201804022050131_KeyAltAdress.Designer.cs">
+      <DependentUpon>201804022050131_KeyAltAdress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804022052449_KeyAltAdress2.cs" />
+    <Compile Include="Migrations\201804022052449_KeyAltAdress2.Designer.cs">
+      <DependentUpon>201804022052449_KeyAltAdress2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804022055280_KeyAltAdress3.cs" />
+    <Compile Include="Migrations\201804022055280_KeyAltAdress3.Designer.cs">
+      <DependentUpon>201804022055280_KeyAltAdress3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804022101328_KeyAltAdress4.cs" />
+    <Compile Include="Migrations\201804022101328_KeyAltAdress4.Designer.cs">
+      <DependentUpon>201804022101328_KeyAltAdress4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804022107371_KeyAltAdress5.cs" />
+    <Compile Include="Migrations\201804022107371_KeyAltAdress5.Designer.cs">
+      <DependentUpon>201804022107371_KeyAltAdress5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804022111108_KeyAltAdress6.cs" />
+    <Compile Include="Migrations\201804022111108_KeyAltAdress6.Designer.cs">
+      <DependentUpon>201804022111108_KeyAltAdress6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804022117103_KeyAltAdress8.cs" />
+    <Compile Include="Migrations\201804022117103_KeyAltAdress8.Designer.cs">
+      <DependentUpon>201804022117103_KeyAltAdress8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Adresse.cs" />
     <Compile Include="Models\AlternativAdresse.cs" />
     <Compile Include="Models\Person.cs" />
@@ -60,6 +93,32 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804021913076_InitialCreate.resx">
+      <DependentUpon>201804021913076_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804022050131_KeyAltAdress.resx">
+      <DependentUpon>201804022050131_KeyAltAdress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804022052449_KeyAltAdress2.resx">
+      <DependentUpon>201804022052449_KeyAltAdress2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804022055280_KeyAltAdress3.resx">
+      <DependentUpon>201804022055280_KeyAltAdress3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804022101328_KeyAltAdress4.resx">
+      <DependentUpon>201804022101328_KeyAltAdress4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804022107371_KeyAltAdress5.resx">
+      <DependentUpon>201804022107371_KeyAltAdress5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804022111108_KeyAltAdress6.resx">
+      <DependentUpon>201804022111108_KeyAltAdress6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804022117103_KeyAltAdress8.resx">
+      <DependentUpon>201804022117103_KeyAltAdress8.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
