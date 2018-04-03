@@ -7,6 +7,7 @@ using HandIn2_2RDB;
 using HandIn2_2RDB.Models;
 using System.Data.Entity;
 
+
 namespace MainRDB
 {
     class Program
