@@ -22,7 +22,7 @@ namespace Handin2_2DDB.Persistence.Repositories
     {
         private DocumentDbRepository<Person> repo;
 
-        public PersonRepository(IReliableReadWriteDocumentClient Client, string databaseName) : base(Client,databaseName)
+        public PersonRepository(IReliableReadWriteDocumentClient client, string databaseName) : base(client,databaseName)
         {
         }
 
