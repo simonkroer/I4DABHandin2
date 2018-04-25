@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,32 +10,24 @@ namespace Handin2_2DDB.Models
 {
     public class Person
     {
-        [JsonProperty("id")]
-        public int PersonId { get; set; }
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
 
-        [JsonProperty("forNavn")]
         public string ForNavn { get; set; }
-
-        [JsonProperty("mellemNavn")]
         public string MellemNavn { get; set; }
-
-        [JsonProperty("efterNavn")]
         public string EfterNavn { get; set; }
-
-        [JsonProperty("email")]
         public string Email { get; set; }
-
-        [JsonProperty("type")]
         public string Type { get; set; }
-
-        [JsonProperty("primAdresse")]
         public Adresse PrimAdresse { get; set; }
 
-        [JsonProperty("altAdresse")]
-        public List<AlternativAdresse> AltAdresse = new List<AlternativAdresse>();
+        public Collection<AlternativAdresse> AltAdresser { get; set; }
+        public Collection<Telefon> Telefoner { get; set; }
 
-        [JsonProperty("telefoner")]
-        public List<Telefon> Telefoner = new List<Telefon>();
+        public override string ToString()
+        {
+            return string.Format("{0} {1} {2}. Email: {3} Telefonnumre: {4}", ForNavn,MellemNavn, EfterNavn, Email,
+                Telefoner.Any() ? string.Join(",", Telefoner.Select(t => t.nummer)) : "-");
+        }
 
     }
 }
