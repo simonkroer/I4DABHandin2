@@ -59,11 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Adresse.cs" />
-    <Compile Include="Models\AlternativAdresse.cs" />
-    <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\Telefon.cs" />
-    <Compile Include="Patterns\UnitOfWork.cs" />
+    <Compile Include="Core\Domain\Adresse.cs" />
+    <Compile Include="Core\Domain\AlternativAdresse.cs" />
+    <Compile Include="Core\Domain\Person.cs" />
+    <Compile Include="Core\Domain\Telefon.cs" />
+    <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Persistence\Repositories\PersonRepository.cs" />
+    <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

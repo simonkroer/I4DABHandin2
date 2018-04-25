@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using DocumentDB.Repository;
-using Handin2_2DDB.Patterns;
-using Handin2_2DDB.Models;
+using Handin2_2DDB.Persistence.Repositories;
+using Handin2_2DDB.Core.Domain;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Client.TransientFaultHandling;
@@ -19,7 +19,6 @@ namespace Handin2_2DDB
     {
         private const string EndpointUrl = "https://localhost:8081";
         private const string PrimaryKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
-        private DocumentClient client;
         public static IReliableReadWriteDocumentClient Client { get; set; }
 
         static void Main(string[] args)
@@ -52,30 +51,27 @@ namespace Handin2_2DDB
 
         private async Task DocumentDBDemoWithUOW()
         {
-            client = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
-
-            UnitOfWork UOW = new UnitOfWork(Client, "Personkartotek");
-
-
-            var person1 = new Person()
+            using (var UOW = new UnitOfWork(new PersonRepository(Client, "Personkartotek")))
             {
-                Id = "1",
-                ForNavn = "Adam",
-                MellemNavn = "Tobias",
-                EfterNavn = "Niklassen",
-                Email = "adam@gmail.com",
-                Type = "Ven",
-
-                PrimAdresse = new Adresse()
+                var person1 = new Person()
                 {
-                    by = "Aarhus V",
-                    land = "Danmark",
-                    postnummer = "8210",
-                    vejnavn = "Finlandsgade",
-                    vejnummer = 21
-                },
+                    Id = "1",
+                    ForNavn = "Adam",
+                    MellemNavn = "Tobias",
+                    EfterNavn = "Niklassen",
+                    Email = "adam@gmail.com",
+                    Type = "Ven",
 
-                AltAdresser = new Collection<AlternativAdresse>
+                    PrimAdresse = new Adresse()
+                    {
+                        by = "Aarhus V",
+                        land = "Danmark",
+                        postnummer = "8210",
+                        vejnavn = "Finlandsgade",
+                        vejnummer = 21
+                    },
+
+                    AltAdresser = new Collection<AlternativAdresse>
                 {
                     new AlternativAdresse()
                     {
@@ -98,33 +94,33 @@ namespace Handin2_2DDB
                     },
                 },
 
-                Telefoner = new Collection<Telefon>
+                    Telefoner = new Collection<Telefon>
                 {
                     new Telefon {nummer = "40829348",teleselskab = "Telia",type = "Mobil"},
                     new Telefon {nummer = "60483959",teleselskab = "3",type = "Arbejde"},
                 }
-            };
+                };
 
 
-            var person2 = new Person()
-            {
-                Id = "2",
-                ForNavn = "Maja",
-                MellemNavn = "",
-                EfterNavn = "Henriksen",
-                Email = "maja@gmail.com",
-                Type = "Veninde",
-
-                PrimAdresse = new Adresse()
+                var person2 = new Person()
                 {
-                    by = "Aarhus N",
-                    land = "Danmark",
-                    postnummer = "8200",
-                    vejnavn = "Randersvej",
-                    vejnummer = 25
-                },
+                    Id = "2",
+                    ForNavn = "Maja",
+                    MellemNavn = "",
+                    EfterNavn = "Henriksen",
+                    Email = "maja@gmail.com",
+                    Type = "Veninde",
 
-                AltAdresser = new Collection<AlternativAdresse>()
+                    PrimAdresse = new Adresse()
+                    {
+                        by = "Aarhus N",
+                        land = "Danmark",
+                        postnummer = "8200",
+                        vejnavn = "Randersvej",
+                        vejnummer = 25
+                    },
+
+                    AltAdresser = new Collection<AlternativAdresse>()
                 {
                     new AlternativAdresse()
                     {
@@ -158,51 +154,53 @@ namespace Handin2_2DDB
                 },
 
 
-                Telefoner = new Collection<Telefon>
+                    Telefoner = new Collection<Telefon>
                 {
                     new Telefon {nummer = "40669348",teleselskab = "Telenor",type = "Hjem"},
                     new Telefon {nummer = "66483959",teleselskab = "Oister",type = "Mobil"},
                 }
-            };
-            //Create 2 persons
-            await UOW.Create(person1);
+                };
+                //Create 2 persons
+                await UOW.PersonRepo.CreatePerson(person1);
 
-            await UOW.Create(person2);
+                await UOW.PersonRepo.CreatePerson(person2);
 
-            //print collection
-            await UOW.PrintPersonCollection();
+                //print collection
+                await UOW.PersonRepo.PrintPersonCollection();
 
-            //change person1's name
-            person1.ForNavn = "Henning";
+                //change person1's name
+                person1.ForNavn = "Henning";
 
-            //Update name in DB
-            await UOW.Update(person1);
+                //Update name in DB
+                await UOW.PersonRepo.UpdatePerson(person1);
 
-            //Print with updated name
-            await UOW.PrintPersonCollection();
+                //Print with updated name
+                await UOW.PersonRepo.PrintPersonCollection();
 
-            //Read person1 to person3
-            var person3 = await UOW.Read("1");
+                //Read person1 to person3
+                var person3 = await UOW.PersonRepo.ReadPerson("1");
 
-            //Update person3's ID
-            person3.Id = "3";
+                //Update person3's ID
+                person3.Id = "3";
 
-            //create person3 in DB
-            await UOW.Create(person3);
+                //create person3 in DB
+                await UOW.PersonRepo.CreatePerson(person3);
 
-            //Print collection with person3 (same as person1, except different ID)
-            await UOW.PrintPersonCollection();
+                //Print collection with person3 (same as person1, except different ID)
+                await UOW.PersonRepo.PrintPersonCollection();
 
-            //delete person3
-            await UOW.Delete("3");
+                //delete person3
+                await UOW.PersonRepo.DeletePerson("3");
 
-            await UOW.PrintPersonCollection();
+                await UOW.PersonRepo.PrintPersonCollection();
 
-            await UOW.Delete("1");
+                await UOW.PersonRepo.DeletePerson("1");
 
-            await UOW.Delete("2");
+                await UOW.PersonRepo.DeletePerson("2");
 
-            await UOW.PrintPersonCollection();
+                await UOW.PersonRepo.PrintPersonCollection();
+            }
+ 
         }
     }
 }
