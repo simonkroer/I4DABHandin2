@@ -17,7 +17,7 @@ namespace HandIn2_2RDB.Models
         public string type { get; set; }
 
         public Adresse primAdresse { get; set; }
-        public List<AlternativAdresse> altAdresse = new List<AlternativAdresse>();
-        public List<Telefon> telefoner = new List<Telefon>();
+        public virtual List<AlternativAdresse> altAdresse { get; set; } = new List<AlternativAdresse>();
+        public virtual List<Telefon> telefoner { get; set; } = new List<Telefon>();
     }
 }

@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201804030104125_test3.Designer.cs">
       <DependentUpon>201804030104125_test3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804252015557_UpdatedModel.cs" />
+    <Compile Include="Migrations\201804252015557_UpdatedModel.Designer.cs">
+      <DependentUpon>201804252015557_UpdatedModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Adresse.cs" />
     <Compile Include="Models\AlternativAdresse.cs" />
@@ -139,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804030104125_test3.resx">
       <DependentUpon>201804030104125_test3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804252015557_UpdatedModel.resx">
+      <DependentUpon>201804252015557_UpdatedModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
