@@ -1,57 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using DocumentDB.Repository;
-using Handin2_2DDB.Models;
+using Handin2_2DDB.Core.Domain;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Client.TransientFaultHandling;
 using Newtonsoft.Json;
 
-namespace Handin2_2DDB.Patterns
-{
-    class UnitOfWork
-    {
-        //For the repository design pattern are used:
-        //https://github.com/Crokus/cosmosdb-repo
-        //Oprindeligt blev nedenstående repository brugt, men dette fungerede ikke.
-        //https://github.com/San7hos/DocumentDbRepository
+//For the repository design pattern are used:
+//https://github.com/Crokus/cosmosdb-repo
+//CRUD Operations are used from this repo and adapted for the PersonRepository
 
+
+namespace Handin2_2DDB.Persistence.Repositories
+{
+    class PersonRepository : DocumentDbRepository<Person>, IDocumentDbRepository<Person>
+    {
         private DocumentDbRepository<Person> repo;
 
-        public UnitOfWork(IReliableReadWriteDocumentClient client, string databaseName)
+        public PersonRepository(IReliableReadWriteDocumentClient client, string databaseName) : base(client,databaseName)
         {
-            repo = new DocumentDbRepository<Person>(client, databaseName);
         }
 
-        public async Task Create(Person personToCreate)
+        public async Task CreatePerson(Person personToCreate)
         {
-            await repo.AddOrUpdateAsync(personToCreate);
+            await AddOrUpdateAsync(personToCreate);
 
             WriteToConsoleAndPromptToContinue("Created person with ID: {0}", personToCreate.Id);
         }
 
-        public async Task<Person> Read(string id)
+        public async Task<Person> ReadPerson(string id)
         {
-            var personToGet = await repo.GetByIdAsync(id);
+            var personToGet = await GetByIdAsync(id);
             WriteToConsoleAndPromptToContinue("Read person with ID: {0}", personToGet.Id);
 
             return personToGet;
-            
         }
 
-        public async Task Update(Person personToUpdate)
+        public async Task UpdatePerson(Person personToUpdate)
         {
-            await repo.AddOrUpdateAsync(personToUpdate);
-            WriteToConsoleAndPromptToContinue("Updated person with ID: {0}",personToUpdate.Id);
+            await AddOrUpdateAsync(personToUpdate);
+            WriteToConsoleAndPromptToContinue("Updated person with ID: {0}", personToUpdate.Id);
         }
 
-        public async Task Delete(string id)
+        public async Task DeletePerson(string id)
         {
 
-            var complete = await repo.RemoveAsync(id);
+            var complete = await RemoveAsync(id);
 
             if (complete)
             {
@@ -61,17 +60,15 @@ namespace Handin2_2DDB.Patterns
             {
                 WriteToConsoleAndPromptToContinue("Couldn't delete person with ID: {0}", id);
             }
-            
-        }
 
+        }
 
         public async Task PrintPersonCollection()
         {
-            IEnumerable<Person> persons = await repo.GetAllAsync();
+            IEnumerable<Person> persons = await GetAllAsync();
 
             persons.ToList().ForEach(Console.WriteLine);
         }
-
 
         private void WriteToConsoleAndPromptToContinue(string format, params object[] args)
         {

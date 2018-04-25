@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Handin2_2DDB.Models
+namespace Handin2_2DDB.Core.Domain
 {
-    public class Telefon
+    public class AlternativAdresse : Adresse
     {
-        public string nummer { get; set; }
         public string type { get; set; }
-        public string teleselskab { get; set; }
     }
 }

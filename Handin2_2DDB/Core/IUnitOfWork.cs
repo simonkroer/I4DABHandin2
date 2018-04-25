@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Handin2_2DDB.Models
+namespace Handin2_2DDB.Core
 {
-    public class AlternativAdresse : Adresse
+    public interface IUnitOfWork : IDisposable
     {
-        public string type { get; set; }
+        
     }
 }

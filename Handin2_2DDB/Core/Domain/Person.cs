@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Handin2_2DDB.Models
+namespace Handin2_2DDB.Core.Domain
 {
     public class Person
     {
